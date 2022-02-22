@@ -1,6 +1,6 @@
 const Project = require('../models/leedprojectmodel')
 const { cloudinary } = require('../cloudinary/index')
-const mbxStyles = require('@mapbox/mapbox-sdk/services/Geocoding');
+const mbxStyles = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geoCoding = mbxStyles({ accessToken: mapBoxToken });
 
