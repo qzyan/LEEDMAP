@@ -1,0 +1,101 @@
+<% layout('/layout/boilerplate') -%>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="card-title fs-4 fw-bold">
+                        Add a New Project
+                    </div>
+                    <form action="/projects" method="post" class=' needs-validation' enctype='multipart/form-data' novalidate>
+                        <div class='mb-3'>
+                            <label for="name" class="form-label">Project Name: </label>
+                            <input type="text" id='name' name="project[name]" class='form-control' required>
+                            <!-- req.body will be {project{name,location}} -->
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+
+                        <div class='mb-3'>
+                            <label for="location" class='form-label'>Project Location: </label>
+                            <input type="text" id='location' name="project[location]" class='form-control' required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class='form-label'>Cost/SF: </label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" id='price' name='project[price]' class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                                <span class="input-group-text">.00</span>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="level" class="form-label">LEED Certified Level:</label>
+                            <select class="form-select" id="level" name="project[certifiLevel]" aria-label="Default select example">
+                                <option selected>Platinum</option>
+                                <option value="1">Gold</option>
+                                <option value="2">Silver</option>
+                                <option value="3">Certified</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <textarea name="project[description]" id="description" class='form-control' rows="5" required></textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <label class="form-label">Images:</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="images" name="image" multiple>
+                            <label class="input-group-text" for="images">Upload</label>
+                        </div>
+                        <!-- multiple will be able to upload multiple images -->
+                        <div class="d-grid">
+                            <button class='btn btn-success mt-2'>Add a New Project</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>

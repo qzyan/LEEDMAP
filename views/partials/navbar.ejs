@@ -1,0 +1,27 @@
+<nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/projects">All LEED Projects</a>
+                <a class="nav-link" href='/projects/new'>New</a>
+                <a class="nav-link disabled">Resources</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <% if (!currentUser) { %>
+                    <a class="nav-link" href="/signin">Sign in</a>
+                    <a class="nav-link" href='/signup'>Sign up</a>
+                    <% } else{%>
+                        <a class="navbar-brand" href="#">Hello <%= currentUser.username %> </a>
+                        <a class="nav-link" href='/signout'>Sign out</a>
+                        <% } %>
+            </div>
+        </div>
+
+    </div>
+</nav>
