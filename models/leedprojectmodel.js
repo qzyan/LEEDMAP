@@ -8,9 +8,9 @@ const imageSchema = new mongoose.Schema({
 
 imageSchema.virtual('thumbnail').get(function () {
     if (this.url.includes('unsplash')) {
-        return this.url.replace('/random', '/random/200x200')
+        return this.url.replace('/random', '/random/140x140')
     }
-    return this.url.replace('/upload', '/upload/w_200,h_200')      // add a virtual to the imageSchema.
+    return this.url.replace('/upload', '/upload/w_140,h_140')      // add a virtual to the imageSchema.
 })
 
 

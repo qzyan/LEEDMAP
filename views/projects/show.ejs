@@ -1,46 +1,33 @@
 <% layout('/layout/boilerplate') -%>
     <link rel="stylesheet" href="/stylesheets/starability-heartbeat.css">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        #map {
-
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
-
-
-    <div class="row justify-content-center ">
-        <div class="col-md-6">
-            <div class="card my-3">
-                <div id="imageControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <% project.images.forEach((image,index)=>{ %>
-                            <div class="carousel-item  <%= index === 0? 'active ':''%>">
-                                <div class="d-flex align-items-center h-100">
-                                    <img src="<%=image.url %>" class=" d-block w-100" alt="">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="box card my-3">
+                <div class="card-img-top">
+                    <div id="imageControls" class="carousel slide " data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <% project.images.forEach((image,index)=>{ %>
+                                <div class="carousel-item  <%= index === 0? 'active ':''%>">
+                                    <div class="d-flex align-items-center h-100">
+                                        <img src="<%=image.url %>" class="img-fluid" alt="">
+                                    </div>
                                 </div>
-
-                            </div>
-                            <%  })%>
+                                <%  })%>
+                        </div>
+                        <% if(project.images.length>1){ %>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#imageControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#imageControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <% } %>
                     </div>
-                    <% if(project.images.length>1){ %>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#imageControls" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#imageControls" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                        <% } %>
                 </div>
+
                 <div class="card-body">
                     <h5 class="card-title">Project Name:
                         <%= project.name %>
@@ -64,39 +51,39 @@
                     </li>
                 </ul>
 
-                <div class="card-body pb-3">
-                    <a href="/projects" class="card-link btn btn-info my-1">Return to All Projects</a>
+                <div class="card-body">
+                    <a href="/projects" class="card-link btn btn-sm btn-info my-1">Return to All Projects</a>
                     <%  if (currentUser && project.author._id.equals(currentUser._id)) { %>
-                        <a href="/projects/<%=project._id%>/edit" class="card-link btn btn-warning mx-0 my-1">Edit the Project
-                            Info
+                        <a href="/projects/<%=project._id%>/edit" class="card-link btn btn-sm btn-warning mx-0 my-1">Edit
+                            the Project Info
                         </a>
-                        <form method='POST' action="/projects/<%=project._id%>?_method=DELETE" class='d-inline-block '>
-                            <button class='btn btn-danger my-1'>Delete</button>
+                        <form method='POST' action="/projects/<%=project._id%>?_method=DELETE" class='d-inline '>
+                            <button class='btn btn-sm btn-danger my-1 flex-fill'>Delete</button>
                         </form>
                         <% } %>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card mt-3">
-                <div id='map'></div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
+        <div class="col-xl-4">
+            <div class="box card my-3 ">
+                <div class="card-img-top">
+                    <div id='map'></div>
+                </div>
+                <div class="card-body ">
                     <h5>Leave a Review:</h5>
-                    <form action="/projects/<%=project._id%>/reviews" method='POST' class='needs-validation' novalidate>
+                    <form action="/projects/<%=project._id%>/reviews" method='POST' class='needs-validation d-flex flex-column' novalidate>
                         <div class="mb-3">
                             <label for="body" class="form-label">Review:</label>
                             <br>
-                            <textarea name="review[body]" id="body" cols="30" rows="5" placeholder="Add your comment here" class="form-control" required></textarea>
+                            <textarea name="review[body]" id="body" cols="30" rows="8" placeholder="Add your comment here" class="form-control" required></textarea>
                             <div id="validationbodyFeedback" class="invalid-feedback">
                                 Please provide your review.
                             </div>
                         </div>
                         <h5>Leave a rating:</h5>
                         <fieldset class="starability-basic starability-heartbeat">
-                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                             <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                             <label for="first-rate1" title="Terrible">1 star</label>
                             <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -108,42 +95,49 @@
                             <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                             <label for="first-rate5" title="Amazing">5 stars</label>
                         </fieldset>
-                        <button class='btn btn-success'>Submit</button>
+                        <button class='btn btn-sm btn-success float-end'>Submit</button>
                     </form>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class='mb-0'>Project Reviews: </h5>
-                </div>
-            </div>
-            <%   for(let review of project.reviews){%>
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <p class="starability-result" data-rating=<%=review.rating %>> Rated:
-                                <%=review.rating %> stars
-                            </p>
-                        </h5>
-                        <p class="card-text mb-0">
-                            Review:
-                            <%=review.body %>
-                        </p>
-                        <p class="card-text">
-                            -
-                            <%=review.author.username %>
-                        </p>
 
-                        <% if(currentUser && currentUser.equals(review.author)){ %>
-                            <form action="/projects/<%=project._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                                <button class='btn btn-sm btn-danger'>Delete</button>
-                            </form>
-                            <% } %>
-                    </div>
-                </div>
-                <% } %>
         </div>
 
+        <div class="col-xl-4">
+            <div class="box border my-3 d-flex flex-column">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class='mb-0'>Project Reviews: </h5>
+                    </div>
+                </div>
+                <div class="overflow-auto border p-1 flex-fill">
+                    <%   for(let review of project.reviews){%>
+                        <div class="card mb-1">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <p class="starability-result" data-rating=<%=review.rating %>> Rated:
+                                        <%=review.rating %> stars
+                                    </p>
+                                </h5>
+                                <p class="card-text mb-0">
+                                    Review:
+                                    <%=review.body %>
+                                </p>
+                                <p class="card-text">
+                                    -
+                                    <%=review.author.username %>
+                                </p>
+
+                                <% if(currentUser && currentUser.equals(review.author)){ %>
+                                    <form action="/projects/<%=project._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                        <button class='btn btn-sm btn-danger'>Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
