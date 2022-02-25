@@ -23,7 +23,7 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
-const dbUrl = 'mongodb://localhost:27017/leedproject' //process.env.MONGODBURL || 
+const dbUrl = process.env.MONGODBURL || 'mongodb://localhost:27017/leedproject'
 const secret = process.env.CLOUDINARY_SECRET || 'it is a secret'
 const MongoStore = require('connect-mongo');
 
@@ -174,6 +174,6 @@ app.use((err, req, res, next) => {
 
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`app listening at http://localhost:${port}`)
 })
 
